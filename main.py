@@ -68,13 +68,20 @@ def main():
 
     doctor_manager = JsonDataManager(doctors_file)
     schedule_manager = JsonDataManager(schedule_file)
+    
+    hospital_list = ["北榮", "振興", "聯合仁愛", "新光", "台北國泰", "汐止國泰", "台北長庚", "基隆長庚", "台安"]
+    department_list = ["內科", "外科", "骨科", "小兒科", "婦產科", "皮膚科", "整形外科", "復健科"]
+    date_list = ["星期一", "星期二", "星期三", "星期四", "星期五"]
+    time_list = ["早上", "下午"]
+    vip_list = ["normal", "vip"]
 
     while True:
         try:
             print("\n=== 主選單 ===")
             print("1. 新增班表")
             print("2. 新增醫生")
-            print("3. 離開")
+            print("3. 查詢時段")
+            print("4. 離開")
             option = input("請輸入功能選項: ")
 
             doctors_data = doctor_manager.read()
@@ -98,9 +105,6 @@ def main():
 
                 # 其他欄位
                 room = safe_input("請輸入診間： ")
-                date_list = ["星期一", "星期二", "星期三", "星期四", "星期五"]
-                time_list = ["早上", "下午"]
-                vip_list = ["normal", "vip"]
 
                 date = OptionSelector("日期", date_list).get_selection()
                 time = OptionSelector("時段", time_list).get_selection()
@@ -129,8 +133,6 @@ def main():
             elif option == "2":
                 # 新增醫生
                 print("新增醫生")
-                hospital_list = ["北榮", "振興", "聯合仁愛", "新光", "台北國泰", "汐止國泰", "台北長庚", "基隆長庚", "台安"]
-                department_list = ["內科", "外科", "骨科", "小兒科", "婦產科", "皮膚科", "整形外科", "復健科"]
 
                 hospital = OptionSelector("醫院", hospital_list).get_selection()
                 department = OptionSelector("科別", department_list).get_selection()
@@ -148,8 +150,32 @@ def main():
                     print(f"✅ 已新增 {name} 至 {hospital} 的 {department}")
                 else:
                     print("⚠️ 醫師已存在")
-
+            
             elif option == "3":
+                # 查詢時段
+                print("查詢值班醫師")
+
+                date = OptionSelector("請選擇要查詢的日期", date_list).get_selection()
+                time = OptionSelector("請選擇要查詢的時段", time_list).get_selection()
+
+                if "schedules" not in schedule_data or not schedule_data["schedules"]:
+                    print("⚠️ 尚無任何班表資料")
+                else:
+                    found = False
+                    print(f"\n📅 查詢結果：{date} {time} 值班醫師\n")
+                    for schedule in schedule_data["schedules"]:
+                        if schedule["date"] == date and schedule["time"] == time:
+                            found = True
+                            print("👨‍⚕️ 醫師：", schedule["doctor"])
+                            print("🏥 醫院：", schedule["hospital"])
+                            print("🩺 科別：", schedule["department"])
+                            print("🚪 診間：", schedule["room"])
+                            print("⭐ 重點名單：", schedule["VIP"])
+                            print("-" * 30)
+                    if not found:
+                        print("⚠️ 沒有符合條件的班表")
+
+            elif option == "4":
                 print("退出程式")
                 break
             else:
