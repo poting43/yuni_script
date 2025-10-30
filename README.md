@@ -9,4 +9,11 @@ $ git clone https://github.com/poting43/yuni_script.git
 ```
 ## 4. 左鍵雙擊 main.bat (main Windows 批次檔案), 即可執行腳本操作 
 (之後只需要做這步就好~)
+
 ![alt text](image-1.png)
+
+## 需要更新為最新版本時, 可以執行下面指令
+```
+$ git fetch origin
+$ git reset --hard origin/master
+```
