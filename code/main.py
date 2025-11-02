@@ -72,7 +72,7 @@ def main():
     schedule_manager = JsonDataManager(schedule_file)
     
     hospital_list = ["北榮", "振興", "聯合仁愛", "新光", "台北國泰", "汐止國泰", "台北長庚", "基隆長庚", "台安"]
-    department_list = ["內科", "外科", "骨科", "小兒科", "婦產科", "皮膚科", "整形外科", "復健科"]
+    department_list = ["內科", "心臟外科", "骨科", "婦產科", "皮膚科", "整形外科", "復健科", "一般外科"]
     date_list = ["星期一", "星期二", "星期三", "星期四", "星期五"]
     time_list = ["早上", "下午"]
     vip_list = ["normal", "vip"]
